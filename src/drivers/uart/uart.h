@@ -14,3 +14,5 @@
 #define GPIOA_BASE 0x40020000
 #define GPIOA_MODER (*(volatile uint32_t *)(GPIOA_BASE))
 #define GPIOA_AFRL (*(volatile uint32_t *)(GPIOA_BASE + 0x20))
+
+void uartInit();
