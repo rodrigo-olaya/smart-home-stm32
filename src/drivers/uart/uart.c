@@ -23,13 +23,22 @@ void uartInit() {
 
     pUSART2->CR1 |= (1 << USART_CR1_RE); // Enable RE
     pUSART2->CR1 |= (1 << USART_CR1_TE); // Enable TE
-    pUSART2->BRR |= (baudMantissa << 4) | 11; //9600 baud
+    pUSART2->BRR |= (baudMantissa << 4) | baudFraction; //9600 baud
     pUSART2->CR1 |= (1 << USART_CR1_UE); // Enable UE
 }
 
-void uartSendByte() {
-    // here comes a byte
-    pUSART2->DR = 0x00;
+int uartSendByte(uint8_t byteToSend) {
 
+    int timeout = 100000;
+    while (!(pUSART2->SR & (1 << USART_SR_TXE))) {
+        if (--timeout == 0) return -1;
+    }
 
+    timeout = 100000;
+    pUSART2->DR = byteToSend;
+    while (!(pUSART2->SR & (1 << USART_SR_TC))) {
+        if (--timeout == 0) return -1;
+    }
+
+    return 0;
 }
