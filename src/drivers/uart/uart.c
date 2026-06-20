@@ -1,22 +1,35 @@
 #include "uart.h"
 
+static const int clock = 16000000; // 16MH
+static const int baud = 9600;
+static const int baudMantissa = clock / baud;
+static const int baudFraction = ((clock % baud) * 16) / baud;
+
 void uartInit() {
-    RCC_AHB1ENR |= 1;
-    RCC_APB1ENR |= (1 << 17);
+    pRCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOA_EN);
+    pRCC->APB1ENR |= (1 << RCC_APB1ENR_USART2_EN);
 
-    GPIOA_MODER &= ~(3 << 6);
-    GPIOA_MODER &= ~(3 << 4);
+    pGPIOA->MODER &= ~(3 << (TX_PIN * 2));
+    pGPIOA->MODER &= ~(3 << (RX_PIN * 2));
 
-    GPIOA_MODER |= (2 << 6);
-    GPIOA_MODER |= (2 << 4);
+    pGPIOA->MODER |= (MODER_ALT_FUNC << (TX_PIN * 2));
+    pGPIOA->MODER |= (MODER_ALT_FUNC << (RX_PIN * 2));
 
-    GPIOA_AFRL &= ~(15 << 12);
-    GPIOA_AFRL &= ~(15 << 8);
+    pGPIOA->AFR[0] &= ~(GPIO_AF15 << (TX_PIN * 4));
+    pGPIOA->AFR[0] &= ~(GPIO_AF15 << (RX_PIN * 4));
 
-    GPIOA_AFRL |= (0b0111 << 12);
-    GPIOA_AFRL |= (0b0111 << 8);
+    pGPIOA->AFR[0] |= (GPIO_AF7 << (TX_PIN * 4));
+    pGPIOA->AFR[0] |= (GPIO_AF7 << (RX_PIN * 4));
 
-    USART2_CR1 |= (3 << 2); // Enable TE and RE
-    USART2_BRR |= (1666 << 4) | 11; //9600 baud
-    USART2_CR1 |= (1 << 13); // Enable UE
+    pUSART2->CR1 |= (1 << USART_CR1_RE); // Enable RE
+    pUSART2->CR1 |= (1 << USART_CR1_TE); // Enable TE
+    pUSART2->BRR |= (baudMantissa << 4) | 11; //9600 baud
+    pUSART2->CR1 |= (1 << USART_CR1_UE); // Enable UE
+}
+
+void uartSendByte() {
+    // here comes a byte
+    pUSART2->DR = 0x00;
+
+
 }
