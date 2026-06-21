@@ -2,8 +2,8 @@
 
 static const int clock = 16000000; // 16MH
 static const int baud = 9600;
-static const int baudMantissa = clock / baud;
-static const int baudFraction = ((clock % baud) * 16) / baud;
+static const int baudMantissa = clock / (16 * baud);
+static const int baudFraction = ((clock % (16 * baud)) * 16) / (16 * baud);  // = 2
 
 void uartInit() {
     pRCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOA_EN);

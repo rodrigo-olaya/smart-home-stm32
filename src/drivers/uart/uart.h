@@ -60,13 +60,13 @@ typedef struct {
     volatile uint32_t BRR;
     volatile uint32_t CR1;
     volatile uint32_t CR2;
-    volatile uint32_t CR2;
+    volatile uint32_t CR3;
     volatile uint32_t GTPR;
 } USART_RegDef_t;
 
-USART_RegDef_t *pUSART2 = (USART_RegDef_t *)0x40004400;
-RCC_RegDef_t *pRCC = (RCC_RegDef_t *)0x40023800;
-GPIO_RegDef_t *pGPIOA = (GPIO_RegDef_t *)0x40020000;
+#define pUSART2 ((USART_RegDef_t *)0x40004400)
+#define pRCC    ((RCC_RegDef_t *)0x40023800)
+#define pGPIOA  ((GPIO_RegDef_t *)0x40020000)
 
 #define USART_CR1_RE 2
 #define USART_CR1_TE 3
@@ -79,7 +79,7 @@ GPIO_RegDef_t *pGPIOA = (GPIO_RegDef_t *)0x40020000;
 #define RCC_APB1ENR_USART2_EN 17
 
 #define GPIO_AF7 7
-#define GPIO_AF15 11
+#define GPIO_AF15 15
 
 #define TX_PIN 2
 #define RX_PIN 3
@@ -93,6 +93,6 @@ enum {
 
 void uartInit();
 
-int uartSendByte();
+int uartSendByte(uint8_t byteToSend);
 
 #endif
