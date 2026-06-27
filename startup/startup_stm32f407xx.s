@@ -7,10 +7,11 @@
     .word   Reset_Handler
     .word   0           /* NMI */
     .word   HardFault_Handler
-    .word   0, 0, 0, 0, 0, 0, 0  /* reserved */
-    .word   0, 0, 0              /* more reserved */
-    .word   0, 0, 0, 0           /* SVC, reserved, PendSV, SysTick */
-
+    .word   0, 0, 0              /* MemManage, BusFault, UsageFault */
+    .word   0, 0, 0, 0           /* reserved */
+    .word   0, 0, 0, 0, 0        /* SVC, DebugMonitor, reserved, PendSV, SysTick */
+    .word   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 /* Positions 0-27 */
+    .word   tim2Handler
     .text
     .thumb_func
     .global Reset_Handler

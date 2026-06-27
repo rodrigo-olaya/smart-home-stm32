@@ -28,7 +28,7 @@ typedef struct {
     volatile uint32_t TIM2_OR;
 } TIM_RegDef_t;
 
-#define pRCC ((RCC_RegDef_t*)0x40023800)
+
 #define NVIC_ISER0 ((volatile uint32_t*)0xE000E100)
 
 #define NVIC_TIM2_POSITION 28
@@ -40,7 +40,12 @@ typedef struct {
 #define TIM2_PSC 15
 #define TIM2_UIE 0
 #define TIM2_CEN 0
+#define TIM2_UIF 0
+
+extern volatile uint32_t tick;
 
 void initTimers();
+
+void tim2Handler();
 
 #endif

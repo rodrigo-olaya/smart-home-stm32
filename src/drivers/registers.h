@@ -54,4 +54,6 @@ typedef struct
 
 } RCC_RegDef_t;
 
+#define pRCC ((RCC_RegDef_t*)0x40023800)
+
 #endif

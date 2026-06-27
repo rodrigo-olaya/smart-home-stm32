@@ -1,12 +1,14 @@
 #include <stdint.h>
 #include "drivers/uart/uart.h"
+#include "drivers/timers/timer.h"
 
 void main() {
     uartInit();
+    initTimers();
 
     while (1) {
         uartSendByte('B');
-        // TODO: Use hardware timer
-        for (volatile int i = 0; i < 1000000; i++);
+        uint32_t start = tick;
+        while (tick - start < 1000);
     }
 }

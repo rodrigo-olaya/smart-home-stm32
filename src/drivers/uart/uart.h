@@ -15,7 +15,7 @@ typedef struct {
 } USART_RegDef_t;
 
 #define pUSART2 ((USART_RegDef_t *)0x40004400)
-#define pRCC    ((RCC_RegDef_t *)0x40023800)
+// #define pRCC    ((RCC_RegDef_t *)0x40023800)
 #define pGPIOA  ((GPIO_RegDef_t *)0x40020000)
 
 #define USART_CR1_RE 2
