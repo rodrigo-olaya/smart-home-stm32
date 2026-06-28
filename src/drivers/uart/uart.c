@@ -27,6 +27,9 @@ void uartInit() {
     pUSART2->CR1 |= (1 << USART_CR1_TE); // Enable TE
     pUSART2->BRR |= (baudMantissa << 4) | baudFraction; //9600 baud
     pUSART2->CR1 |= (1 << USART_CR1_UE); // Enable UE
+
+    *NVIC_ISER1 |= (1 << ISER1_UART2_POSITION);
+    
 }
 
 int uartSendByte(uint8_t byteToSend) {
@@ -49,6 +52,7 @@ int uartEnqueue(uint8_t byteToEnqueue) {
     if ((uartBuffer.tail + 1) % UART_BUF_MAX != uartBuffer.head) {
         uartBuffer.buffer[uartBuffer.tail] = byteToEnqueue; 
         uartBuffer.tail = (uartBuffer.tail + 1) % UART_BUF_MAX;
+        pUSART2->CR1 |= (1 << USART_CR1_TXEIE);
     }
     else {
         return -1;
@@ -63,7 +67,18 @@ int16_t uartDequeue() {
         uartBuffer.head = (uartBuffer.head + 1) % UART_BUF_MAX;
     }
     else {
+        pUSART2->CR1 &= ~(1 << USART_CR1_TXEIE);
         return -1;
     }
     return dequeued;
+}
+
+void uartISR() {
+    int16_t dequeued = uartDequeue();
+    if (dequeued != -1) {
+        pUSART2->DR = (uint8_t)dequeued;
+    }
+    else {
+        // buffer is empty
+    }
 }

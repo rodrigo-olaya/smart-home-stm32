@@ -28,9 +28,6 @@ typedef struct {
     volatile uint32_t TIM2_OR;
 } TIM_RegDef_t;
 
-
-#define NVIC_ISER0 ((volatile uint32_t*)0xE000E100)
-
 #define NVIC_TIM2_POSITION 28
 #define TIM2_EN 0
 

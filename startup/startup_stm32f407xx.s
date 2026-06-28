@@ -12,6 +12,8 @@
     .word   0, 0, 0, 0, 0        /* SVC, DebugMonitor, reserved, PendSV, SysTick */
     .word   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 /* Positions 0-27 */
     .word   tim2Handler
+    .word   0, 0, 0, 0, 0, 0, 0, 0, 0 /* Positions 28-37 */
+    .word   uartISR
     .text
     .thumb_func
     .global Reset_Handler

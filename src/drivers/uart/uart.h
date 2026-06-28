@@ -29,6 +29,7 @@ typedef struct {
 #define USART_CR1_RE 2
 #define USART_CR1_TE 3
 #define USART_CR1_UE 13
+#define USART_CR1_TXEIE 7 
 
 #define USART_SR_TC 6
 #define USART_SR_TXE 7
@@ -41,6 +42,8 @@ typedef struct {
 
 #define TX_PIN 2
 #define RX_PIN 3
+
+#define ISER1_UART2_POSITION 6
 
 enum {
     MODER_INPUT = 0,
@@ -55,6 +58,8 @@ int uartSendByte(uint8_t byteToSend);
 
 int uartEnqueue(uint8_t byteToEnqueue);
 
-uint8_t uartDequeue();
+int16_t uartDequeue();
+
+void uartISR();
 
 #endif
