@@ -55,3 +55,15 @@ int uartEnqueue(uint8_t byteToEnqueue) {
     }
     return 0;
 }
+
+int16_t uartDequeue() {
+    int16_t dequeued;
+    if (uartBuffer.head != uartBuffer.tail) {
+        dequeued = uartBuffer.buffer[uartBuffer.head];
+        uartBuffer.head = (uartBuffer.head + 1) % UART_BUF_MAX;
+    }
+    else {
+        return -1;
+    }
+    return dequeued;
+}

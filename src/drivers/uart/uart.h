@@ -55,4 +55,6 @@ int uartSendByte(uint8_t byteToSend);
 
 int uartEnqueue(uint8_t byteToEnqueue);
 
+uint8_t uartDequeue();
+
 #endif
