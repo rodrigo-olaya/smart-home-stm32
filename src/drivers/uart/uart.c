@@ -5,6 +5,8 @@ static const int baud = 9600;
 static const int baudMantissa = clock / (16 * baud);
 static const int baudFraction = ((clock % (16 * baud)) * 16) / (16 * baud);  // = 2
 
+Circular_Buffer_t uartBuffer;
+
 void uartInit() {
     pRCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOA_EN);
     pRCC->APB1ENR |= (1 << RCC_APB1ENR_USART2_EN);
@@ -40,5 +42,16 @@ int uartSendByte(uint8_t byteToSend) {
         if (--timeout == 0) return -1;
     }
 
+    return 0;
+}
+
+int uartEnqueue(uint8_t byteToEnqueue) {
+    if ((uartBuffer.tail + 1) % UART_BUF_MAX != uartBuffer.head) {
+        uartBuffer.buffer[uartBuffer.tail] = byteToEnqueue; 
+        uartBuffer.tail = (uartBuffer.tail + 1) % UART_BUF_MAX;
+    }
+    else {
+        return -1;
+    }
     return 0;
 }

@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include "../registers.h"
 
+#define UART_BUF_MAX 50
+
 typedef struct {
     volatile uint32_t SR;
     volatile uint32_t DR;
@@ -13,6 +15,12 @@ typedef struct {
     volatile uint32_t CR3;
     volatile uint32_t GTPR;
 } USART_RegDef_t;
+
+typedef struct {
+	uint8_t buffer[UART_BUF_MAX];
+	uint8_t head;
+	uint8_t tail;
+} Circular_Buffer_t;
 
 #define pUSART2 ((USART_RegDef_t *)0x40004400)
 // #define pRCC    ((RCC_RegDef_t *)0x40023800)
@@ -44,5 +52,7 @@ enum {
 void uartInit();
 
 int uartSendByte(uint8_t byteToSend);
+
+int uartEnqueue(uint8_t byteToEnqueue);
 
 #endif
