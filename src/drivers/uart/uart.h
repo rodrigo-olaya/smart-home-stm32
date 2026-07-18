@@ -54,7 +54,7 @@ enum {
 
 void uartInit();
 
-int uartSendByte(uint8_t byteToSend);
+// int uartSendByte(uint8_t byteToSend);
 
 int uartEnqueue(uint8_t byteToEnqueue);
 

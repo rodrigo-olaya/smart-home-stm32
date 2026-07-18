@@ -32,21 +32,21 @@ void uartInit() {
     
 }
 
-int uartSendByte(uint8_t byteToSend) {
+// int uartSendByte(uint8_t byteToSend) {
 
-    int timeout = 100000;
-    while (!(pUSART2->SR & (1 << USART_SR_TXE))) {
-        if (--timeout == 0) return -1;
-    }
+//     int timeout = 100000;
+//     while (!(pUSART2->SR & (1 << USART_SR_TXE))) {
+//         if (--timeout == 0) return -1;
+//     }
 
-    timeout = 100000;
-    pUSART2->DR = byteToSend;
-    while (!(pUSART2->SR & (1 << USART_SR_TC))) {
-        if (--timeout == 0) return -1;
-    }
+//     timeout = 100000;
+//     pUSART2->DR = byteToSend;
+//     while (!(pUSART2->SR & (1 << USART_SR_TC))) {
+//         if (--timeout == 0) return -1;
+//     }
 
-    return 0;
-}
+//     return 0;
+// }
 
 int uartEnqueue(uint8_t byteToEnqueue) {
     if ((uartBuffer.tail + 1) % UART_BUF_MAX != uartBuffer.head) {
