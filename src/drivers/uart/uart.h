@@ -30,7 +30,9 @@ typedef struct {
 #define USART_CR1_TE 3
 #define USART_CR1_UE 13
 #define USART_CR1_TXEIE 7 
+#define USART_CR1_RXNEIE 5
 
+#define USART_SR_RXNE 5
 #define USART_SR_TC 6
 #define USART_SR_TXE 7
 
@@ -56,9 +58,13 @@ void uartInit();
 
 // int uartSendByte(uint8_t byteToSend);
 
-int uartEnqueue(uint8_t byteToEnqueue);
+int uartTxEnqueue(uint8_t byteToEnqueue);
 
-int16_t uartDequeue();
+int16_t uartRxDequeue();
+
+int uartRxEnqueue();
+
+int16_t uartRxDequeue();
 
 void uartISR();
 
