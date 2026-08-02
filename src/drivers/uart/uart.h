@@ -60,7 +60,7 @@ void uartInit();
 
 int uartTxEnqueue(uint8_t byteToEnqueue);
 
-int16_t uartRxDequeue();
+int16_t uartTxDequeue();
 
 int uartRxEnqueue();
 
