@@ -30,14 +30,21 @@ typedef struct {
 
 #define NVIC_TIM2_POSITION 28
 #define TIM2_EN 0
+#define TIM3_EN 1
 
 #define pTIM2 ((TIM_RegDef_t*)0x40000000)
+#define pTIM3 ((TIM_RegDef_t*)0x40000400)
 
 #define TIM2_ARR 1000
 #define TIM2_PSC 15
 #define TIM2_UIE 0
 #define TIM2_CEN 0
 #define TIM2_UIF 0
+
+#define TIM3_ARR 65535
+#define TIM3_PSC 15
+#define TIM3_CEN 0
+#define TIM3_UIF 0
 
 extern volatile uint32_t tick;
 

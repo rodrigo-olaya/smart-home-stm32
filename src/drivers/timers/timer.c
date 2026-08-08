@@ -5,6 +5,7 @@ volatile uint32_t tick;
 
 void initTimers() {
     pRCC->APB1ENR |= (0x01 << TIM2_EN);
+    pRCC->APB1ENR |= (0x01 << TIM3_EN);
     *NVIC_ISER0 |= (0x01 << NVIC_TIM2_POSITION);
 
     pTIM2->ARR = TIM2_ARR;
@@ -12,6 +13,10 @@ void initTimers() {
 
     pTIM2->DIER |= (0x01 << TIM2_UIE);
     pTIM2->CR1 |= (0x01 << TIM2_CEN);
+
+    pTIM3->ARR = TIM3_ARR;
+    pTIM3->PSC = TIM3_PSC;
+    pTIM3->CR1 |= (0x01 << TIM3_CEN);
 }
 
 void tim2Handler() {
