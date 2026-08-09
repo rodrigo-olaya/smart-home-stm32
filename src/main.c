@@ -1,10 +1,14 @@
 #include <stdint.h>
 #include "drivers/uart/uart.h"
 #include "drivers/timers/timer.h"
+#include "drivers/gpio/gpio.h"
+#include "drivers/sonar/sonar.h"
 
 void main() {
+    gpioInit();
     uartInit();
     initTimers();
+    sonarInit();
 
     while (1) {
         // uartSendByte('B');

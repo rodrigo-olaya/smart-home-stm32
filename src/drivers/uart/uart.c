@@ -9,7 +9,6 @@ Circular_Buffer_t uartTxBuffer;
 Circular_Buffer_t uartRxBuffer;
 
 void uartInit() {
-    pRCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOA_EN);
     pRCC->APB1ENR |= (1 << RCC_APB1ENR_USART2_EN);
 
     pGPIOA->MODER &= ~(3 << (TX_PIN * 2));
