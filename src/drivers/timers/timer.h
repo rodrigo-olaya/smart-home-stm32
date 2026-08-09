@@ -52,4 +52,6 @@ void initTimers();
 
 void tim2Handler();
 
+uint32_t elapsedUs(uint32_t start);
+
 #endif

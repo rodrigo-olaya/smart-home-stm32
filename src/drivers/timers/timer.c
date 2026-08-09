@@ -23,3 +23,13 @@ void tim2Handler() {
     pTIM2->SR &= ~(0x01 << TIM2_UIF);
     tick++;
 }
+
+uint32_t elapsedUs(uint32_t start) {
+    uint32_t current = pTIM3->CNT;
+    if (start > current) {
+        return current + (pTIM3->ARR + 1) - start;
+    }
+    else{
+        return current - start;
+    }
+}
