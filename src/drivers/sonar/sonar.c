@@ -25,7 +25,7 @@ uint16_t readSonar() {
 
     uint32_t preSoundStart = pTIM3->CNT;
 
-    while (~(pGPIOA->IDR & (1 << ECHO_PIN)) && elapsedUs(preSoundStart) < 100);
+    while (!(pGPIOA->IDR & (1 << ECHO_PIN)) && elapsedUs(preSoundStart) < 10000);
 
     uint32_t soundStart = pTIM3->CNT;
 
