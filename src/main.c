@@ -10,6 +10,7 @@ void main() {
     uartInit();
     initTimers();
     sonarInit();
+    extiInit();
 
     while (1) {
         // uartSendByte('B');

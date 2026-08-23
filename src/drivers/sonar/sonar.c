@@ -1,5 +1,11 @@
 #include "sonar.h"
 
+volatile uint32_t preSoundStart;
+volatile uint32_t soundStart;
+volatile uint32_t elapsedTime;
+volatile uint8_t ready;
+volatile uint8_t waitingForFallingEdge;
+
 void sonarInit(){
     pGPIOA->MODER &= ~(3 << (TRIG_PIN * 2));
     pGPIOA->MODER |= (MODER_GP_OUT << (TRIG_PIN * 2));
@@ -29,9 +35,12 @@ void triggerSonar() {
 void handleEcho(uint8_t dir) {
     if (dir == 1) {
         soundStart = pTIM3->CNT;
+        waitingForFallingEdge = 1;
     }
-    else {
+    else if (dir == 0 && waitingForFallingEdge == 1) {
         elapsedTime = elapsedUs(soundStart);
+        ready = 1;
+        waitingForFallingEdge = 0;
     }
 }
 
@@ -44,7 +53,11 @@ uint16_t readSonar() {
 
     // elapsedTime = elapsedUs(soundStart);
 
+    if (!(ready == 1)) return 0;
+
     uint32_t out = processSonarData(elapsedTime);
+
+    ready = 0;
 
     return out;
 }
