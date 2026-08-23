@@ -4,6 +4,7 @@
 #include "drivers/gpio/gpio.h"
 #include "drivers/sonar/sonar.h"
 #include "drivers/exti/exti.h"
+#include "heartbeatHandler/heartbeatHandler.h"
 
 void main() {
     gpioInit();
@@ -11,6 +12,9 @@ void main() {
     initTimers();
     sonarInit();
     extiInit();
+
+    uint32_t startTick = tick;
+    triggerSonar();
 
     while (1) {
         // uartSendByte('B');
@@ -21,17 +25,13 @@ void main() {
         // while ((received = uartRxDequeue()) != -1) {
         //     uartTxEnqueue((uint8_t)received);
         // }
-        triggerSonar();
-        uint16_t distance = readSonar();
-
-
-        uartTxEnqueue(0xAA);
-        uartTxEnqueue(0x01);
-        uartTxEnqueue('H');
-        uartTxEnqueue('B');
-        uartTxEnqueue('H');
-        uartTxEnqueue('B');
-        uint32_t start = tick;
-        while (tick - start < 1000);
+        if (tick - lastSonarTrigger >= 60) {
+            handleSonar();
+        }
+        
+        if (tick - lastHeartbeat >= 1000) {
+            handleHeartbeat();
+        }
+        // while (tick - start < 1000);
     }
 }

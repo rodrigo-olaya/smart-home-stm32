@@ -4,6 +4,7 @@
 #include "../registers.h"
 #include "../gpio/gpio.h"
 #include "../timers/timer.h"
+#include "../uart/uart.h"
 
 #define TRIG_PIN 4
 #define ECHO_PIN 5
@@ -13,6 +14,7 @@ extern volatile uint32_t soundStart;
 extern volatile uint32_t elapsedTime;
 extern volatile uint8_t ready;
 extern volatile uint8_t waitingForFallingEdge;
+extern volatile uint32_t lastSonarTrigger;
 
 void sonarInit();
 
@@ -21,5 +23,7 @@ void triggerSonar();
 void handleEcho(uint8_t dir);
 
 uint16_t readSonar();
+
+void handleSonar();
 
 #endif

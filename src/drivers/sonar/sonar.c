@@ -5,6 +5,7 @@ volatile uint32_t soundStart;
 volatile uint32_t elapsedTime;
 volatile uint8_t ready;
 volatile uint8_t waitingForFallingEdge;
+volatile uint32_t lastSonarTrigger;
 
 void sonarInit(){
     pGPIOA->MODER &= ~(3 << (TRIG_PIN * 2));
@@ -30,6 +31,31 @@ void triggerSonar() {
     pGPIOA->BSRR = (1 << (TRIG_PIN + 16));
 
     preSoundStart = pTIM3->CNT;
+
+    lastSonarTrigger = tick;
+}
+
+void handleSonar() {
+    uint16_t distance = readSonar();
+
+    if (distance >= 10 && distance <= 60) {
+        uartTxEnqueue(0xAA);
+        uartTxEnqueue(0x02);
+        uartTxEnqueue(0x00);
+        uartTxEnqueue(0x00);
+        uartTxEnqueue(0x00);
+        uartTxEnqueue(0x01);
+    }
+    else {
+        uartTxEnqueue(0xAA);
+        uartTxEnqueue(0x02);
+        uartTxEnqueue(0x00);
+        uartTxEnqueue(0x00);
+        uartTxEnqueue(0x00);
+        uartTxEnqueue(0x00);
+    }
+
+    triggerSonar();
 }
 
 void handleEcho(uint8_t dir) {
