@@ -3,6 +3,7 @@
 #include "drivers/timers/timer.h"
 #include "drivers/gpio/gpio.h"
 #include "drivers/sonar/sonar.h"
+#include "drivers/exti/exti.h"
 
 void main() {
     gpioInit();
@@ -19,6 +20,7 @@ void main() {
         // while ((received = uartRxDequeue()) != -1) {
         //     uartTxEnqueue((uint8_t)received);
         // }
+        triggerSonar();
         uint16_t distance = readSonar();
 
 

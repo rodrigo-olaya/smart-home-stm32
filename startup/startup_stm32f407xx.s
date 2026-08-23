@@ -10,10 +10,13 @@
     .word   0, 0, 0              /* MemManage, BusFault, UsageFault */
     .word   0, 0, 0, 0           /* reserved */
     .word   0, 0, 0, 0, 0        /* SVC, DebugMonitor, reserved, PendSV, SysTick */
-    .word   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 /* Positions 0-27 */
+    .word   0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 /* Posotions 0-22 */
+    .word   exti_9_5_ISR 
+    .word   0, 0, 0, 0 /* Positions 24-27 */
     .word   tim2Handler
     .word   0, 0, 0, 0, 0, 0, 0, 0, 0 /* Positions 28-37 */
     .word   uartISR
+    .word   0
     .text
     .thumb_func
     .global Reset_Handler

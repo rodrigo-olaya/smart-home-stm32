@@ -15,7 +15,7 @@ uint32_t processSonarData(uint32_t time) {
     }
 }
 
-uint16_t readSonar() {
+void triggerSonar() {
     uint32_t start = pTIM3->CNT;
 
     pGPIOA->BSRR = (1 << TRIG_PIN);
@@ -23,15 +23,26 @@ uint16_t readSonar() {
 
     pGPIOA->BSRR = (1 << (TRIG_PIN + 16));
 
-    uint32_t preSoundStart = pTIM3->CNT;
+    preSoundStart = pTIM3->CNT;
+}
 
-    while (!(pGPIOA->IDR & (1 << ECHO_PIN)) && elapsedUs(preSoundStart) < 10000);
+void handleEcho(uint8_t dir) {
+    if (dir == 1) {
+        soundStart = pTIM3->CNT;
+    }
+    else {
+        elapsedTime = elapsedUs(soundStart);
+    }
+}
 
-    uint32_t soundStart = pTIM3->CNT;
+uint16_t readSonar() {
+    // while (!(pGPIOA->IDR & (1 << ECHO_PIN)) && elapsedUs(preSoundStart) < 10000);
 
-    while (pGPIOA->IDR & (1 << ECHO_PIN) && elapsedUs(soundStart) < 60000);
+    // soundStart = pTIM3->CNT;
 
-    uint32_t elapsedTime = elapsedUs(soundStart);
+    // while (pGPIOA->IDR & (1 << ECHO_PIN) && elapsedUs(soundStart) < 60000);
+
+    // elapsedTime = elapsedUs(soundStart);
 
     uint32_t out = processSonarData(elapsedTime);
 

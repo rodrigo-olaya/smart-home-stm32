@@ -1,6 +1,9 @@
+#ifndef EXTI_H
+#define EXTI_H
+
 #include "stdint.h"
-#include "registers.h"
-#include "sonar.h"
+#include "../registers.h"
+#include "../sonar/sonar.h"
 
 typedef struct {
     volatile uint32_t IMR;    // 0x00 - Interrupt mask register
@@ -26,4 +29,10 @@ typedef struct {
 #define SYSCFGEN 14
 #define SYSCFG_EXTI5_SHIFT 4
 
+#define NVIC_EXTI5_POS 23
+
 void extiInit();
+
+void exti_9_5_ISR();
+
+#endif
