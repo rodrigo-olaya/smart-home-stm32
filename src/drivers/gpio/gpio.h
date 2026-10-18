@@ -4,7 +4,12 @@
 #include "../registers.h"
 
 #define pGPIOA  ((GPIO_RegDef_t *)0x40020000)
+#define pGPIOB  ((GPIO_RegDef_t *)0x40020400)
+
 #define RCC_AHB1ENR_GPIOA_EN 0
+#define RCC_AHB1ENR_GPIOB_EN 1
+
+#define GPIO_AF2 2
 
 enum {
     MODER_INPUT = 0,

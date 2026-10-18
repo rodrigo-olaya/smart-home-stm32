@@ -53,3 +53,9 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Raw firmware images
+*.bin
+
+# macOS
+.DS_Store

@@ -35,7 +35,7 @@ void triggerSonar() {
     lastSonarTrigger = tick;
 }
 
-void handleSonar() {
+uint16_t handleSonar() {
     uint16_t distance = readSonar();
 
     if (distance >= 10 && distance <= 60) {

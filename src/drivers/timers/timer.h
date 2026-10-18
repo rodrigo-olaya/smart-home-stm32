@@ -31,9 +31,11 @@ typedef struct {
 #define NVIC_TIM2_POSITION 28
 #define TIM2_EN 0
 #define TIM3_EN 1
+#define TIM4_EN 2
 
 #define pTIM2 ((TIM_RegDef_t*)0x40000000)
 #define pTIM3 ((TIM_RegDef_t*)0x40000400)
+#define pTIM4 ((TIM_RegDef_t*)0x40000800)
 
 #define TIM2_ARR 1000
 #define TIM2_PSC 15

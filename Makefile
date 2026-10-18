@@ -8,8 +8,8 @@ CFLAGS = -mcpu=cortex-m4 \
 -T linker/stm32f407vg.ld \
 -g \
 
-firmware.elf: src/main.c startup/startup_stm32f407xx.s src/drivers/uart/uart.c src/drivers/timers/timer.c src/drivers/gpio/gpio.c src/drivers/sonar/sonar.c src/drivers/exti/exti.c src/heartbeatHandler/heartbeatHandler.c
-	$(CC) $(CFLAGS) src/main.c startup/startup_stm32f407xx.s src/drivers/uart/uart.c src/drivers/timers/timer.c src/drivers/gpio/gpio.c src/drivers/sonar/sonar.c src/drivers/exti/exti.c src/heartbeatHandler/heartbeatHandler.c -o firmware.elf
+firmware.elf: src/main.c startup/startup_stm32f407xx.s src/drivers/uart/uart.c src/drivers/timers/timer.c src/drivers/gpio/gpio.c src/drivers/sonar/sonar.c src/drivers/exti/exti.c src/drivers/pwm/pwm.c src/heartbeatHandler/heartbeatHandler.c
+	$(CC) $(CFLAGS) src/main.c startup/startup_stm32f407xx.s src/drivers/uart/uart.c src/drivers/timers/timer.c src/drivers/gpio/gpio.c src/drivers/sonar/sonar.c src/drivers/exti/exti.c src/drivers/pwm/pwm.c src/heartbeatHandler/heartbeatHandler.c -o firmware.elf
 
 clean:
 	rm -f firmware.elf

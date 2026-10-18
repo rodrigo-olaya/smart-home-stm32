@@ -24,6 +24,6 @@ void handleEcho(uint8_t dir);
 
 uint16_t readSonar();
 
-void handleSonar();
+uint16_t handleSonar();
 
 #endif
