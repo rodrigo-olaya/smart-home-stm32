@@ -4,6 +4,7 @@
 #include "drivers/gpio/gpio.h"
 #include "drivers/sonar/sonar.h"
 #include "drivers/exti/exti.h"
+#include "drivers/pwm/pwm.h"
 #include "heartbeatHandler/heartbeatHandler.h"
 
 void main() {
@@ -12,10 +13,16 @@ void main() {
     initTimers();
     sonarInit();
     extiInit();
+    pwmInit();
 
     uint32_t startTick = tick;
     triggerSonar();
 
+    uint16_t permilleTestValues[6] = {0, 30, 100, 250, 500, 1000};
+    int i = 0;
+
+    lastPwmTrigger = tick;
+    
     while (1) {
         // uartSendByte('B');
         // uint32_t start = tick;
@@ -31,6 +38,15 @@ void main() {
         
         if (tick - lastHeartbeat >= 1000) {
             handleHeartbeat();
+        }
+
+        if (tick - lastPwmTrigger > 500) {
+            
+            pwmSetDuty(2, permilleTestValues[i]);
+            pwmSetDuty(3, permilleTestValues[i]);
+            i++;
+            if (i > 5) i = 0;
+            lastPwmTrigger = tick;
         }
         // while (tick - start < 1000);
     }

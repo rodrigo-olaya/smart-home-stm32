@@ -1,5 +1,7 @@
 #include "pwm.h"
 
+volatile uint32_t lastPwmTrigger;
+
 void pwmInit(void) {
     pRCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOB_EN);
     pRCC->APB1ENR |= (1 << TIM4_EN);
@@ -44,4 +46,18 @@ void pwmInit(void) {
 
     pTIM4->CR1 &= ~(1 << PWM_CEN);
     pTIM4->CR1 |= (1 << PWM_CEN);
+}
+
+void pwmSetDuty(pwm_channel_t ch, uint16_t permille) {
+    
+    if (permille > 1000) return;
+
+    switch (ch) {
+        case PWM_CH_TARGET:
+            pTIM4->CCR2 = permille;
+        break;
+        case PWM_CH_APPROACH:
+            pTIM4->CCR3 = permille;
+        break;
+    }
 }

@@ -30,6 +30,8 @@ typedef enum {
     PWM_CH_APPROACH = 3
 } pwm_channel_t;
 
+extern volatile uint32_t lastPwmTrigger;
+
 void pwmInit(void);
 void pwmSetDuty(pwm_channel_t ch, uint16_t permille);
 
