@@ -1,7 +1,5 @@
 #include "pwm.h"
 
-volatile uint32_t lastPwmTrigger;
-
 void pwmInit(void) {
     pRCC->AHB1ENR |= (1 << RCC_AHB1ENR_GPIOB_EN);
     pRCC->APB1ENR |= (1 << TIM4_EN);

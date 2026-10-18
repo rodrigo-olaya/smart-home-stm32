@@ -38,24 +38,26 @@ void triggerSonar() {
 uint16_t handleSonar() {
     uint16_t distance = readSonar();
 
-    if (distance >= 10 && distance <= 60) {
-        uartTxEnqueue(0xAA);
-        uartTxEnqueue(0x02);
-        uartTxEnqueue(0x00);
-        uartTxEnqueue(0x00);
-        uartTxEnqueue(0x00);
-        uartTxEnqueue(0x01);
-    }
-    else {
-        uartTxEnqueue(0xAA);
-        uartTxEnqueue(0x02);
-        uartTxEnqueue(0x00);
-        uartTxEnqueue(0x00);
-        uartTxEnqueue(0x00);
-        uartTxEnqueue(0x00);
-    }
+    // if (distance >= 10 && distance <= 60) {
+    //     uartTxEnqueue(0xAA);
+    //     uartTxEnqueue(0x02);
+    //     uartTxEnqueue(0x00);
+    //     uartTxEnqueue(0x00);
+    //     uartTxEnqueue(0x00);
+    //     uartTxEnqueue(0x01);
+    // }
+    // else {
+    //     uartTxEnqueue(0xAA);
+    //     uartTxEnqueue(0x02);
+    //     uartTxEnqueue(0x00);
+    //     uartTxEnqueue(0x00);
+    //     uartTxEnqueue(0x00);
+    //     uartTxEnqueue(0x00);
+    // }
 
     triggerSonar();
+
+    return distance;
 }
 
 void handleEcho(uint8_t dir) {

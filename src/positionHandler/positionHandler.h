@@ -8,6 +8,5 @@
 
 void positionInit(void);
 void handlePosition(uint16_t distanceCm);
-void updatePositionLeds(void);
 
 #endif
