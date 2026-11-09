@@ -59,3 +59,31 @@ dkms.conf
 
 # macOS
 .DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# KiCad: lock files, autosaves, backups, per-user caches and view state
+*.lck
+*-backups/
+*-bak
+*.kicad_pcb-bak
+_autosave-*
+fp-info-cache
+*.kicad_prl
+
+# Secrets and local config
+.env
+.env.*
+*.pem
+*.key
+secrets*
+
+# Editors / misc
+*.swp
+*~
+
+# Local-only: generator scripts, notes, backups
+local-files/
