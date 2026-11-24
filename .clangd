@@ -1,0 +1,5 @@
+# No compile_commands.json for the bare-metal build, so tell clangd how the Makefile compiles.
+# The compiler query finds the newlib/GCC headers. Needs arm-none-eabi-gcc on PATH.
+CompileFlags:
+  Compiler: arm-none-eabi-gcc
+  Add: [-mcpu=cortex-m4, -mthumb, -ffreestanding, -Isrc]
